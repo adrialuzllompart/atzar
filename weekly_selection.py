@@ -3,7 +3,6 @@ import pandas as pd
 import requests
 import json
 import spotipy
-#
 
 def authenticate(username='adrialuz', scope='playlist-modify-public'):
 
