@@ -1,1 +1,1 @@
-/Users/aluz/opt/anaconda3/bin/python /Users/aluz/Desktop/repos/random-starred-selection/weekly_selection.py
+/Users/aluz/opt/anaconda3/bin/python /Users/aluz/Desktop/repos/atzar/weekly_selection.py
