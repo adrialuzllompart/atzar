@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 import requests
@@ -6,18 +7,17 @@ import spotipy
 
 def authenticate(username='adrialuz', scope='playlist-modify-public'):
 
-	with open('/Users/aluz/Desktop/repos/festival-playlists/auth.json') as f:
-	    credentials = json.load(f)
-
-	spotify_client_id = credentials['spotify']['client_id']
-	spotify_client_secret = credentials['spotify']['client_secret']
+	spotify_client_id = os.getenv('SPOTIPY_CLIENT_ID')
+	spotify_client_secret = os.getenv('SPOTIPY_CLIENT_SECRET')
 
 	token = spotipy.util.prompt_for_user_token(username, scope, spotify_client_id, spotify_client_secret,
-	                                          'http://localhost')
+	                                          'http://localhost:9090')
 
 	sp = spotipy.Spotify(auth=token)
 
 	sp.trace = False
+
+	print('Succesfully authenticated!')
 
 	return sp
 
@@ -48,6 +48,8 @@ def get_random_selection(sp, starred_playlist_id='74ezAopojjumaLWeWVUy0f', n_tra
 	        all_tracks.append(tracks['items'][t]['track']['id'])
 
 	weekly_selection = np.random.choice(all_tracks, size=n_tracks, replace=False)
+
+	print('Succesfully got random selection of songs!')
 
 	return weekly_selection
 

@@ -1,1 +1,1 @@
-/Users/aluz/opt/anaconda3/bin/python /Users/aluz/Desktop/repos/atzar/weekly_selection.py
+/Users/adrialuz/opt/miniconda3/envs/spotify/bin/python /Users/adrialuz/Desktop/repos/atzar/weekly_selection.py
