@@ -1,1 +1,0 @@
-/Users/adrialuz/opt/miniconda3/envs/spotify/bin/python /Users/adrialuz/Desktop/repos/atzar/weekly_selection.py
