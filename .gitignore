@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 .cache-adrialuz
 .spotify_cache
+get_token.py
