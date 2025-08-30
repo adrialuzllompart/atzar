@@ -4,12 +4,12 @@ from dotenv import load_dotenv
 from atzar.auth import authenticate
 from atzar.playlist import clear_playlist, get_random_tracks, add_tracks
 
-# Load environment variables
+# Load local .env
 load_dotenv()
 
-# Set up logging
+# Logging setup
 logging.basicConfig(
-    level=logging.INFO,  # INFO shows high-level messages; DEBUG would show everything
+    level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
 logger = logging.getLogger(__name__)
@@ -35,7 +35,7 @@ def main():
 
     except Exception as e:
         logger.exception("Error updating weekly playlist")
-        raise  # Re-raise so GitHub Actions will mark workflow as failed
+        raise  # ensures GitHub Actions marks workflow as failed
 
 if __name__ == "__main__":
     main()
