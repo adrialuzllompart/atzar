@@ -1,23 +1,29 @@
 import os
+from dotenv import load_dotenv
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
-from dotenv import load_dotenv
+
+# Load .env locally
+load_dotenv()
 
 def authenticate(scope="playlist-modify-public") -> Spotify:
-    """Authenticate and return a Spotify client."""
-    load_dotenv()
-    token_info = {
-        "refresh_token": os.getenv("SPOTIPY_REFRESH_TOKEN"),
-        "client_id": os.getenv("SPOTIPY_CLIENT_ID"),
-        "client_secret": os.getenv("SPOTIPY_CLIENT_SECRET"),
-        "redirect_uri": os.getenv("SPOTIPY_REDIRECT_URI"),
-    }
-    sp = Spotify(auth_manager=SpotifyOAuth(
-        client_id=token_info["client_id"],
-        client_secret=token_info["client_secret"],
-        redirect_uri=token_info["redirect_uri"],
+    refresh_token = os.getenv("SPOTIPY_REFRESH_TOKEN")
+    client_id = os.getenv("SPOTIPY_CLIENT_ID")
+    client_secret = os.getenv("SPOTIPY_CLIENT_SECRET")
+    redirect_uri = os.getenv("SPOTIPY_REDIRECT_URI")
+
+    if not all([refresh_token, client_id, client_secret, redirect_uri]):
+        raise ValueError("Missing one of the required Spotify credentials")
+
+    sp_oauth = SpotifyOAuth(
+        client_id=client_id,
+        client_secret=client_secret,
+        redirect_uri=redirect_uri,
         scope=scope,
-        cache_path=None  # don't store token locally
-    ))
-    sp.auth_manager.refresh_access_token(token_info["refresh_token"])
+        cache_path=None
+    )
+
+    # refresh access token using refresh_token
+    token_info = sp_oauth.refresh_access_token(refresh_token)
+    sp = Spotify(auth=token_info["access_token"])
     return sp
